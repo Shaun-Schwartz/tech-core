@@ -7,6 +7,9 @@ class Organization < ApplicationRecord
 
   has_many :events, dependent: :destroy
 
+  geocoded_by :address
+  after_validation :geocode
+  
   scope :search_by_name, -> (name) {
     where("name ILIKE  '%#{name}%'")
   }
