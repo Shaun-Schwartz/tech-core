@@ -1,6 +1,11 @@
 <h1>News</h1>
-<% @all_articles.each do |article| %>
-  <div class="col-8 col-sm-6 col-md-4 col-lg-3">
-      <%= article.title%>
-  </div>
-<% end %>
+<%= render 'search_aritcle_form' %>
+<div>
+
+  <%#@filter ? @all_articles_filterd : @all_articles.each do |article| %>
+  <% @filtered_article_arr.each do |article| %>
+   <%# puts "=========================erb===========" %>
+  <%# puts article %>
+        <h5><a href="<%=article.url%>"><%= article.title%></a></h5>
+  <% end %>
+</div>
