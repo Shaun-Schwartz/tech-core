@@ -32,7 +32,7 @@ super_user = User.create(
 end
 
 users = User.all
-
+images = ['company.png', 'company1.png', 'company2.png', 'company3.png', 'company4.png', 'company5.png', 'company6.png']
 puts Cowsay.say("Create #{users.count} users", :tux)
 
 users.each do |user|
@@ -46,7 +46,7 @@ users.each do |user|
     tech_team_size: rand(10..25),
     website: Faker::Book.title,
     twitter: Faker::Code.asin,
-    logo: Faker::Company.logo,
+    logo: Rails.root.join("public/logos", images.sample).open,
     published: true,
     user_id: user.id
   )
