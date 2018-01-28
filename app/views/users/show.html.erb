@@ -2,26 +2,34 @@
   <div class="section-header text-center">
     <h2 class="title">User</h2>
   </div>
+  <div class="text-center">
 
-  <p>
-    <strong>Name:</strong>
-    <%= @user.full_name %>
-  </p>
+    <p>
+      <strong>Name:</strong>
+      <%= @user.full_name %>
+    </p>
 
-  <p>
-    <strong>Name:</strong>
-    <%= @user.email %>
-  </p>
+    <p>
+      <strong>Name:</strong>
+      <%= @user.email %>
+    </p>
 
-  <% if @user.organizations.present? %>
-  <p>
-    <strong>Organization:</strong>
-    <%= @user.organizations.first.name %>
-  </p>
-  <% end %>
+    <% if @user.organizations.present? %>
+    <p>
+      <strong>Organization:</strong>
+      <%= @user.organizations.first.name %>
+    </p>
+    <% end %>
 
-  <p>
-    <strong>Name:</strong>
-    <%= @user.full_name %>
-  </p>
+    <p>
+      <strong>Name:</strong>
+      <%= @user.full_name %>
+    </p>
+
+    <%= link_to 'Edit Account', edit_user_path(current_user), class: "btn btn-primary"  %>
+
+    <%= link_to 'Delete Account', user_path(current_user),
+    method: :delete, data: {confirm: 'Are you sure?'}, class: "btn btn-danger"  %>
+  </div>
+
 </div>
