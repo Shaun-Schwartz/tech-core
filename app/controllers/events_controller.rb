@@ -27,16 +27,18 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+
   end
 
   # POST /events
   # POST /events.json
   def create
-    @event = Event.create(event_params)
-    @event.user = current_user
-    @event.save
+    @event = Event.new event_params
+    @event.organization = current_user.organizations.first
     respond_to do |format|
+      binding.pry
       if @event.save
+        binding.pry
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         # format.json { render :show, status: :created, location: @event }
       else
