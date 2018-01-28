@@ -48,6 +48,9 @@
   <strong>Published:</strong>
   <%= @organization.published %>
 </p>
+<% if can?(:crud, @organization) %>
+  <p><h3>Update Organization</h3></p>
+  <%= render 'edit_form' %>
 
 <hr />
 
