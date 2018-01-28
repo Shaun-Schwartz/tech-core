@@ -6,7 +6,14 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = Event.all
+    @itensPerPage = 12
+    @actualPage = 1
+    if params[:page].to_i > 1
+      @actualPage = params[:page]
+    end
+    @events = Event.paginate(:page => @actualPage, :per_page => @itensPerPage)
+    # @events = Event.all
+    @totalItens = Event.all.count
   end
 
   # GET /events/1
