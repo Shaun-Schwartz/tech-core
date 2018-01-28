@@ -81,7 +81,6 @@ class OrganizationsController < ApplicationController
   end
 
   # DELETE /organizations/1
-  # DELETE /organizations/1.json
   def destroy
     @organization.destroy
       redirect_to organizations_url, notice: 'Organization was successfully destroyed.'
@@ -96,7 +95,7 @@ class OrganizationsController < ApplicationController
       end
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    # Only permits parameters listed below
     def organization_params
       params.require(:organization).permit(:search_name, :name, :address, :latitude, :longitude, :overview, :employees, :tech_team_size, :website, :twitter, :logo, :published)
     end
