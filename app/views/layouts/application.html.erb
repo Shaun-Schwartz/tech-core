@@ -65,7 +65,7 @@
                 <% end %>
                 <!-- User with an organization -->
                 <% if current_user&.organizations.present? && !current_user.is_admin? %>
-                  <li><%= link_to("My Organization", organization_path(current_user.organizations.first)) %></li>
+                  <li><%= link_to current_user.organizations.first.name, organization_path(current_user.organizations.first) %></li>
                 <!-- User without organization -->
                 <li><%= link_to 'Create Event', new_organization_event_path(current_user) %></li>
                 <% elsif current_user && !current_user.is_admin? %>
