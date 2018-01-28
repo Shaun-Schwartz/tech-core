@@ -16,12 +16,16 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @event = Event.new
+    if !current_user.organizations.present?
+     redirect_to new_organization_path,
+                   alert: 'Must belong to an organization to create an event'
+   else
+     @event = Event.new
+   end
   end
 
   # GET /events/1/edit
   def edit
-    # @organization = current_user.organizations.first
   end
 
   # POST /events

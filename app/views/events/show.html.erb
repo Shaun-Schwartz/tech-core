@@ -23,9 +23,17 @@
   <%= @event.end_time %>
 </p>
 
-<% if can?(:crud, @event) %>
+<%if can?(:crud, @event) %>
   <%= link_to 'Edit', edit_event_path(@event) %>
+  <%= link_to(
+    'Delete',
+     event_path(@event),
+    data: {confirm: 'Are you sure?'},
+    method: :delete
+  ) %>
 <% end %>
+
+
 <%#= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
 
 <!--
