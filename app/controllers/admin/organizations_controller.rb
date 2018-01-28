@@ -1,6 +1,6 @@
 class Admin::OrganizationsController < ApplicationController
   before_action :is_admin!
-  
+
   def index
     @organization = Organization.create
     @organizations = Organization.order(created_at: :desc)
@@ -33,3 +33,4 @@ class Admin::OrganizationsController < ApplicationController
   end
 
 end
+ 
