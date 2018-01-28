@@ -11,15 +11,19 @@ class Organization < ApplicationRecord
   # validates :logo, presence: true
 
 
-  geocoded_by :address
-  after_validation :geocode
-  
+  # geocoded_by :address
+  # after_validation :geocode
+
   scope :search_by_name, -> (name) {
     where("name ILIKE  '%#{name}%'")
   }
 
   scope :search_by_tag, -> (tag_array) {
     joins(:taggings).where("taggings.tag_id IN (:tags)", tags: tag_array)
+  }
+
+  scope :search_by_tech_size, -> (team_size) {
+    where("tech_team_size <= #{team_size}+5 AND tech_team_size >= #{team_size}-5")
   }
 
 end
