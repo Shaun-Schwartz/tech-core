@@ -16,18 +16,12 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    # User must belong to an org to create an event
-    if !current_user.organizations.present?
-      redirect_to new_organization_path,
-                    notice: 'Must belong to an organization to create an event'
-    else
-      @event = Event.new
-    end
+    @event = Event.new
   end
 
   # GET /events/1/edit
   def edit
-
+    # @organization = current_user.organizations.first
   end
 
   # POST /events
@@ -36,9 +30,7 @@ class EventsController < ApplicationController
     @event = Event.new event_params
     @event.organization = current_user.organizations.first
     respond_to do |format|
-      binding.pry
       if @event.save
-        binding.pry
         format.html { redirect_to @event, notice: 'Event was successfully created.' }
         # format.json { render :show, status: :created, location: @event }
       else
@@ -81,5 +73,12 @@ class EventsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:title, :description, :location, :start_time, :end_time)
+  end
+
+  def authorize_user!
+    unless can?(:crud, @event)
+      flash[:alert] = "Access Denied!"
+      redirect_to home_path
+    end
   end
 end
