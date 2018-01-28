@@ -1,10 +1,8 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :authorize_user!, only: [:create, :edit, :update, :destroy]
 
-  # GET /organizations
-  # GET /organizations.json
   def index
     organization_keyword = params[:organization]
     if organization_keyword
