@@ -203,7 +203,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     height: 40px;
     width: 100%;
     border: none;
-	  background: #F4F4F4;
+	background: #F4F4F4;
     border-bottom: 2px solid #EEE;
     color: #354052;
     padding: 0px 10px;
@@ -267,6 +267,8 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focu
 .navbar-brand .logo, .navbar-brand .logo-alt {
     max-height: 50px;
     display: block;
+    padding-top: 3px;
+    padding-bottom: 2px;
 }
 
 #nav:not(.nav-transparent):not(.fixed-nav) .navbar-brand .logo-alt {
@@ -1114,6 +1116,8 @@ header {
 
 .blog .blog-content {
     padding: 20px 20px 40px;
+    overflow: auto;
+    height: 300px;
 }
 
 .blog .blog-meta {
