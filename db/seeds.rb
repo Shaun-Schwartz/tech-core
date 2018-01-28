@@ -11,12 +11,21 @@ PASSWORD = '123'
 
 
 
+# Admin with Company
 super_user = User.create(
-  first_name: 'a',
+  first_name: 'Alexander',
   last_name: 'a',
   email: 'a@a.a',
   password: PASSWORD,
   is_admin: true
+)
+# Non Admin with company
+super_user_B = User.create(
+  first_name: 'Robert',
+  last_name: 'a',
+  email: 'a@a.com',
+  password: PASSWORD,
+  is_admin: false
 )
 
 80.times.each do
@@ -51,6 +60,15 @@ users.each do |user|
     user_id: user.id
   )
 end
+
+# User nonAdmin with no Organization
+super_user_C = User.create(
+  first_name: 'AdminNoMore',
+  last_name: 'a',
+  email: 'a@a.ca',
+  password: PASSWORD,
+  is_admin: false
+)
 
 organizations = Organization.all
 puts Cowsay.say("Created #{organizations.count} organizations", :ghostbusters)
