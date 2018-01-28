@@ -5,7 +5,7 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = Event.all
+    @events = Event.all.order(start_time: :asc)
   end
 
   # GET /events/1
@@ -70,4 +70,3 @@ class EventsController < ApplicationController
       redirect_to home_path
     end
   end
-end
