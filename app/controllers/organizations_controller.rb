@@ -11,14 +11,14 @@ class OrganizationsController < ApplicationController
       keyword_type = organization_keyword.keys.first
       keyword = organization_keyword[keyword_type]
       if keyword_type  == "search_name"
-        @organizations = Organization.search_by_name(keyword)
+        @organizations = Organization.search_by_name(keyword).order(name: :asc)
       elsif keyword_type == "tag_ids"
         @organizations = Organization.search_by_tag(keyword.map{|kw| kw if kw.present?})
       elsif keyword_type == "tech_size"
-        @organizations = Organization.search_by_tech_size(keyword.to_i)
+        @organizations = Organization.search_by_tech_size(keyword.to_i).order(name: :asc)
       end
     else
-        @organizations = Organization.all
+        @organizations = Organization.all.order(name: :asc);
     end
 
     # send localizations fot index page
