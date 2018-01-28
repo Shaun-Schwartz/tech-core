@@ -1,11 +1,13 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user!, only: [:create, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
+    # Get params matching :organization
     organization_keyword = params[:organization]
     if organization_keyword
+      # Get a type of keyword: search_name, tags_ids, tech_size
       keyword_type = organization_keyword.keys.first
       keyword = organization_keyword[keyword_type]
       if keyword_type  == "search_name"
@@ -19,7 +21,7 @@ class OrganizationsController < ApplicationController
         @organizations = Organization.all.order(name: :asc);
     end
 
-    # send localizations fot index page
+    # Send localizations for index page
     @isMarkersGood = true
     @markers = Gmaps4rails.build_markers(@organizations) do |organization, marker|
       # If some lat or long is nil, it will crashes the Maps on Index. The I send @isMarkersGood = false and donn't show the map... But I can use a lat / long fake here... just uncomment the code below
@@ -38,7 +40,6 @@ class OrganizationsController < ApplicationController
   end
 
   # GET /organizations/1
-  # GET /organizations/1.json
   def show
   end
 
@@ -56,47 +57,34 @@ class OrganizationsController < ApplicationController
   end
 
   # POST /organizations
-  # POST /organizations.json
   def create
     if current_user.organizations.first.present?
       head :unauthorized
     else
       @organization = Organization.new(organization_params)
       @organization.user = current_user
-      respond_to do |format|
         if @organization.save
-          format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
-          format.json { render :show, status: :created, location: @organization }
+          redirect_to @organization, notice: 'Organization was successfully created.'
         else
-          format.html { render :new }
-          format.json { render json: @organization.errors, status: :unprocessable_entity }
+          render :new
         end
-      end
     end
   end
 
   # PATCH/PUT /organizations/1
-  # PATCH/PUT /organizations/1.json
   def update
-    respond_to do |format|
       if @organization.update(organization_params)
-        format.html { redirect_to @organization, notice: 'Organization was successfully updated.' }
-        # format.json { render :show, status: :ok, location: @organization }
+        redirect_to @organization, notice: 'Organization was successfully updated.'
       else
-        format.html { render :edit }
-        # format.json { render json: @organization.errors, status: :unprocessable_entity }
+        render :edit
       end
-    end
   end
 
   # DELETE /organizations/1
   # DELETE /organizations/1.json
   def destroy
     @organization.destroy
-    respond_to do |format|
-      format.html { redirect_to organizations_url, notice: 'Organization was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+      redirect_to organizations_url, notice: 'Organization was successfully destroyed.'
   end
 
   private
