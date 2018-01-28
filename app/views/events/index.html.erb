@@ -31,11 +31,10 @@ $('#calendar').fullCalendar({
   <tbody>
     <% @events.each do |event| %>
       <tr>
-        <td><%= event.title %></td>
+        <td><%= link_to "#{event.title}", event %></td>
         <td><%= event.description %></td>
         <td><%= event.location %></td>
-        <td><%= event.start_time.strftime("%b %d") %></td>
-        <td><%= link_to 'Show', event %></td>
+        <td><%= event.start_time.strftime("%b %d %l:00") %></td>
         <td><%#= link_to 'Edit', edit_event_path(event) %></td>
         <!-- edit event path is not yet set up -->
         <td><%#= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
