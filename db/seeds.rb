@@ -32,7 +32,7 @@ super_user = User.create(
 end
 
 users = User.all
-images = ['company.png', 'company1.png', 'company2.png', 'company3.png', 'company4.png', 'company5.png', 'company6.png']
+images = ['company.png', 'company1.png', 'company2.png', 'company3.png', 'company4.png', 'company5.png', 'company6.png', 'company7.png', 'company8.png', 'company9.png', 'company10.png', 'company11.png', 'company12.png', 'company13.png', 'company14.png', 'company15.png', 'company16.png']
 puts Cowsay.say("Create #{users.count} users", :tux)
 
 users.each do |user|
