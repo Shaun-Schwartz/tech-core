@@ -22,10 +22,19 @@ class OrganizationsController < ApplicationController
     end
 
     # send localizations fot index page
+    @isMarkersGood = true
     @markers = Gmaps4rails.build_markers(@organizations) do |organization, marker|
-      marker.lat organization.latitude
-      marker.lng organization.longitude
-      marker.infowindow "<a href='#{organization_path(organization.id)}'>#{organization.name}</a>"
+      # If some lat or long is nil, it will crashes the Maps on Index. The I send @isMarkersGood = false and donn't show the map... But I can use a lat / long fake here... just uncomment the code below
+      if organization.latitude == nil || organization.longitude == nil
+        # @isMarkersGood = false
+        marker.lat 49.2780017  + (rand(1000) / 10000.0)
+        marker.lng -123.1203521 + (rand(1000) / 10000.0)
+        marker.infowindow "<a href='#{organization_path(organization.id)}'>#{organization.name}</a>"
+      else
+        marker.lat organization.latitude
+        marker.lng organization.longitude
+        marker.infowindow "<a href='#{organization_path(organization.id)}'>#{organization.name}</a>"
+      end
     end
 
   end
@@ -37,7 +46,11 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/new
   def new
-    @organization = Organization.new
+    if current_user.organizations.first.present?
+      redirect_to home_path, alert: "You already have an organization."
+    else
+      @organization = Organization.new
+    end
   end
 
   # GET /organizations/1/edit
@@ -47,16 +60,19 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   # POST /organizations.json
   def create
-    @organization = Organization.new(organization_params)
-    @organization.user = current_user
-
-    respond_to do |format|
-      if @organization.save
-        format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
-        format.json { render :show, status: :created, location: @organization }
-      else
-        format.html { render :new }
-        format.json { render json: @organization.errors, status: :unprocessable_entity }
+    if current_user.organizations.first.present?
+      head :unauthorized
+    else
+      @organization = Organization.new(organization_params)
+      @organization.user = current_user
+      respond_to do |format|
+        if @organization.save
+          format.html { redirect_to @organization, notice: 'Organization was successfully created.' }
+          format.json { render :show, status: :created, location: @organization }
+        else
+          format.html { render :new }
+          format.json { render json: @organization.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -91,7 +107,7 @@ class OrganizationsController < ApplicationController
       @organization = Organization.find(params[:id])
       if !@organization
         redirect_to home_path
-      end 
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
