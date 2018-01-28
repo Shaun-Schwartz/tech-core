@@ -2,6 +2,24 @@ body {
   margin: 0;
 }
 
+main {
+  min-height: 60vh;
+  margin-bottom: 30px;
+}
+
+fieldset, .field {
+  margin: 8px !important;
+}
+
+
+form {
+  margin-bottom: 25px;
+}
+
+.form {
+  min-width: 350px;
+}
+
 .has-error > .help-block {
   color: red;
 }
