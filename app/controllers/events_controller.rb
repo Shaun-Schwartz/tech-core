@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
-  before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :authorize_user!, only: [:create, :edit, :update, :destroy]
 
   # GET /events
   def index
