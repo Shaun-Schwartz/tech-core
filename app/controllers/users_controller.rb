@@ -48,25 +48,26 @@ class UsersController < ApplicationController
   # DELETE /users/1
   def destroy
     @user.destroy
-      redirect_to users_url, notice: 'User was successfully destroyed.'
-    end
+    redirect_to users_url, notice: 'User was successfully destroyed.'
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    ## Only permits parameters listed below
-    def user_params
-      params.require(:user).permit(
-        :first_name,
-        :last_name,
-        :email,
-        :password,
-        :password_confirmation,
-        :is_admin
-      )
-    end
+  ## Only permits parameters listed below
+  def user_params
+    params.require(:user).permit(
+      :first_name,
+      :last_name,
+      :email,
+      :password,
+      :password_confirmation,
+      :is_admin
+    )
+  end
+
+
 end
