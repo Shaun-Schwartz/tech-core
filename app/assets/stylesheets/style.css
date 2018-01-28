@@ -187,7 +187,7 @@ ul, ol {
 
 .section-header {
     position: relative;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .section-header .title {
@@ -209,18 +209,17 @@ ul, ol {
 
 /* --  Input  -- */
 
-input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], input[type="url"], input[type="tel"], textarea {
+/*input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"], input[type="url"], input[type="tel"], textarea {
     height: 40px;
     width: 100%;
-    border: none;
-	  background: #F4F4F4;
+	background: #F4F4F4;
     border-bottom: 2px solid #EEE;
     color: #354052;
     padding: 0px 10px;
     opacity: 0.5;
     -webkit-transition: 0.2s border-color, 0.2s opacity;
     transition: 0.2s border-color, 0.2s opacity;
-}
+}*/
 
 textarea {
     padding: 10px 10px;
@@ -228,10 +227,10 @@ textarea {
     resize: vertical;
 }
 
-input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="number"]:focus, input[type="date"]:focus, input[type="url"]:focus, input[type="tel"]:focus, textarea:focus {
+/*input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus, input[type="number"]:focus, input[type="date"]:focus, input[type="url"]:focus, input[type="tel"]:focus, textarea:focus {
     border-color: #6195FF;
     opacity: 1;
-}
+}*/
 
 /* --  Buttons  -- */
 
@@ -1126,6 +1125,8 @@ header {
 
 .blog .blog-content {
     padding: 20px 20px 40px;
+    overflow: auto;
+    height: 300px;
 }
 
 .blog .blog-meta {
