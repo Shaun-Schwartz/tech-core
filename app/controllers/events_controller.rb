@@ -5,7 +5,14 @@ class EventsController < ApplicationController
 
   # GET /events
   def index
-    @events = Event.all.order(start_time: :asc)
+    @itensPerPage = 12
+    @actualPage = 1
+    if params[:page].to_i > 1
+      @actualPage = params[:page]
+    end
+    @events = Event.paginate(:page => @actualPage, :per_page => @itensPerPage)
+    # @events = Event.all
+    @totalItens = Event.all.count
   end
 
   # GET /events/1
@@ -49,7 +56,11 @@ class EventsController < ApplicationController
   # DELETE /events/1
   def destroy
     @event.destroy
-      redirect_to events_url, notice: 'Event was successfully destroyed.'
+
+    respond_to do |format|
+      # redirect to my organization show page
+      format.html { redirect_to organization_url(current_user.organizations.first), notice: 'Event was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
@@ -74,3 +85,4 @@ class EventsController < ApplicationController
       redirect_to home_path
     end
   end
+end
